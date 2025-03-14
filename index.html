@@ -15,13 +15,30 @@
     <style>
       * {
         font-family: 'Poppins', sans-serif;
-        touch-action: manipulation; /* Better touch responsiveness */
+        touch-action: manipulation;
+      }
+
+      body {
+        background: radial-gradient(circle, #ff0000, #ff8000, #ffff00, #00ff00, #00ffff, #0000ff, #8000ff);
+        background-size: 200% 200%;
+        animation: backgroundAnimation 10s infinite alternate;
+        overflow: hidden;
+      }
+
+      @keyframes backgroundAnimation {
+        0% {
+          background-position: 0% 0%;
+        }
+        100% {
+          background-position: 100% 100%;
+        }
       }
 
       .color-splash {
         animation: splashExpand 1.2s ease-out forwards;
         mix-blend-mode: screen;
-        z-index: 1;
+        z-index: 9999; 
+        position: absolute;
       }
 
       @keyframes splashExpand {
@@ -30,10 +47,10 @@
           opacity: 1;
         }
         50% {
-          transform: scale(2) rotate(180deg); /* Reduced scale for mobile */
+          transform: scale(2) rotate(180deg);
         }
         100% {
-          transform: scale(3) rotate(360deg); /* Reduced scale for mobile */
+          transform: scale(3) rotate(360deg);
           opacity: 0;
         }
       }
@@ -41,92 +58,47 @@
       .content-wrapper {
         position: relative;
         z-index: 2;
-        min-height: 100vh; /* Ensure full height */
+        min-height: 100vh;
         display: flex;
         flex-direction: column;
-        justify-content: center; /* Center content vertically */
-        padding: 20px; /* Added padding for better spacing */
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .text-container {
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 20px;
+        display: inline-block;
+        width: 90%;
+        max-width: 400px;
+        margin: 0 auto;
       }
 
       .holi-glow {
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        position: relative;
+        animation: glow 2s infinite alternate;
       }
 
-      .gradient-bg {
-        background: linear-gradient(
-          -45deg,
-          #ff0000,
-          #ff8000,
-          #ffff00,
-          #00ff00,
-          #00ffff,
-          #0000ff,
-          #8000ff
-        );
-        background-size: 400% 400%;
-        animation: gradientFlow 20s ease infinite;
-      }
-
-      @keyframes gradientFlow {
-        0% {
-          background-position: 0% 50%;
+      @keyframes glow {
+        from {
+          text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff00de, 0 0 40px #ff00de, 0 0 50px #ff00de, 0 0 60px #ff00de, 0 0 70px #ff00de;
         }
-        50% {
-          background-position: 100% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
+        to {
+          text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
         }
       }
 
       .floating {
-        animation: float 3s ease-in-out infinite;
+        animation: float 6s ease-in-out infinite;
       }
 
       @keyframes float {
-        0%,
-        100% {
+        0%, 100% {
           transform: translateY(0);
         }
         50% {
-          transform: translateY(-20px); /* Reduced float distance for mobile */
-        }
-      }
-
-      .text-container {
-        background: rgba(
-          0,
-          0,
-          0,
-          0.5
-        ); /* Darker background for better contrast */
-        backdrop-filter: blur(10px); /* Increased blur for better readability */
-        border-radius: 20px;
-        padding: 20px;
-        display: inline-block;
-        width: 90%; /* Adjusted width for mobile */
-        max-width: 400px; /* Limit maximum width */
-        margin: 0 auto; /* Center the container */
-      }
-
-      /* Mobile-specific adjustments */
-      @media (max-width: 640px) {
-        h1 {
-          font-size: 3rem !important; /* Smaller font size for mobile */
-        }
-
-        h2 {
-          font-size: 1.5rem !important; /* Smaller font size for mobile */
-        }
-
-        p {
-          font-size: 1rem !important; /* Smaller font size for mobile */
-        }
-
-        button {
-          padding: 10px 20px !important; /* Smaller button for mobile */
-          font-size: 1rem !important; /* Smaller font size for mobile */
+          transform: translateY(-20px);
         }
       }
     </style>
@@ -134,48 +106,37 @@
   <body class="gradient-bg overflow-hidden">
     <div class="container mx-auto content-wrapper">
       <div class="text-center space-y-4 relative z-10">
-        <!-- Main Title -->
         <div class="text-container">
-          <h1 class="text-4xl md:text-6xl font-bold text-white holi-glow mb-4">
+          <h1 class="text-4xl md:text-6xl font-bold text-white holi-glow mb-4 floating">
             HAPPY HOLI!
           </h1>
 
-          <!-- Greeting Card -->
-          <div
-            class="bg-white/40 backdrop-blur-lg rounded-3xl p-6 shadow-2xl transform transition-all duration-300 hover:shadow-3xl"
-          >
-            <div class="space-y-4">
-              <div class="floating">
-                <h2 class="text-2xl md:text-4xl font-bold text-white mb-2">
-                  From Payal Jaswal
-                </h2>
-              </div>
+          <div class="bg-white/40 backdrop-blur-lg rounded-3xl p-6 shadow-2xl">
+            <h2 class="text-2xl md:text-4xl font-bold text-white mb-2">
+              From Payal Jaswal
+            </h2>
 
-              <p
-                class="text-lg md:text-2xl text-white leading-relaxed font-semibold"
-              >
-                Celebrate this Holi with colors of joy, hope, and new
-                beginnings—the best is yet to come 🌈
-              </p>
+            <p
+              class="text-lg md:text-2xl text-white leading-relaxed font-semibold"
+            >
+              Celebrate this Holi with colors of joy, hope, and new beginnings!
+            </p>
 
-              <!-- Splash Button -->
-              <button
-                onclick="createMegaSplash()"
-                class="mt-6 bg-white/50 hover:bg-white/60 text-black font-bold py-3 px-12 rounded-full transform hover:scale-105 transition-all duration-300 border-2 border-white/80 hover:border-white text-xl flex items-center justify-center gap-2 mx-auto"
-              >
+            <button
+              onclick="createMegaSplash()"
+              class="mt-6 bg-white/50 hover:bg-white/60 text-black font-bold py-3 px-12 rounded-full transform hover:scale-105 transition-all duration-300 border-2 border-white/80 hover:border-white text-xl flex items-center justify-center gap-2 mx-auto"
+            >
               TAP!
-              </button>
-            </div>
+            </button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Splash Container -->
     <div
       id="splash-container"
       class="fixed inset-0 pointer-events-none"
-      style="z-index: 1"
+      style="z-index: 9999"
     ></div>
 
     <script>
@@ -190,32 +151,26 @@
 
       function createSplash(x, y) {
         const splash = document.createElement('div');
-        splash.className =
-          'color-splash absolute w-16 h-16 rounded-full'; /* Smaller splashes for mobile */
-        splash.style.left = `${x - 32}px`;
-        splash.style.top = `${y - 32}px`;
+        splash.className = 'color-splash absolute w-32 h-32 rounded-full';
+        splash.style.left = `${x - 48}px`;
+        splash.style.top = `${y - 48}px`;
         splash.style.background = `radial-gradient(circle, 
-                ${colors[Math.floor(Math.random() * colors.length)]}, 
-                ${colors[Math.floor(Math.random() * colors.length)]})`;
-
+              ${colors[Math.floor(Math.random() * colors.length)]}, 
+              ${colors[Math.floor(Math.random() * colors.length)]})`;
         document.getElementById('splash-container').appendChild(splash);
-        setTimeout(() => splash.remove(), 1200);
+        setTimeout(() => splash.remove(), 1500);
       }
 
       function createMegaSplash() {
-        // Center explosion
         for (let i = 0; i < 30; i++) {
-          /* Reduced particle count for mobile */
           const angle = (Math.PI * 2 * i) / 30;
-          const speed = 5 + Math.random() * 5; /* Reduced speed for mobile */
+          const speed = 5 + Math.random() * 5;
           const x = window.innerWidth / 2 + Math.cos(angle) * speed * 30;
           const y = window.innerHeight / 2 + Math.sin(angle) * speed * 30;
           setTimeout(() => createSplash(x, y), i * 10);
         }
 
-        // Random explosions
         for (let i = 0; i < 10; i++) {
-          /* Reduced random explosions for mobile */
           setTimeout(() => {
             const x = Math.random() * window.innerWidth;
             const y = Math.random() * window.innerHeight;
@@ -224,14 +179,12 @@
         }
       }
 
-      // Touch event listener for mobile
       document.addEventListener('touchstart', (e) => {
         e.preventDefault();
         const touch = e.touches[0];
         createMegaSplash(touch.clientX, touch.clientY);
       });
 
-      // Initial splash
       setTimeout(createMegaSplash, 500);
     </script>
   </body>
